@@ -1,16 +1,20 @@
 import { HomeComponent } from './components/home/home.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { UIRouterModule } from '@uirouter/angular';
 
-const routes: Routes = [
-    {
-        path: '',
-        component: HomeComponent
-    }
-];
+
+const STATES = [
+  { name: 'home', url: '/home', component: HomeComponent },
+]
+
+
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, {useHash: true})],
-    exports: [RouterModule]
+  imports: [
+    UIRouterModule.forRoot({ states: STATES, useHash: true })
+  ],
+  exports: [
+    UIRouterModule
+  ]
 })
 export class AppRoutingModule { }
