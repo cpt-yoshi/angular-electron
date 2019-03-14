@@ -33,6 +33,29 @@ function createWindow() {
     }));
   }
 
+
+var child = require('child_process').execFile;
+var executablePath = "/usr/bin/putty";
+
+child(executablePath, function(err, data) {
+    if(err){
+       console.error(err);
+       return;
+    }
+
+    console.log(data.toString());
+});
+
+/*
+const { execFile } = require('child_process').execFile;
+
+const child = execFile('/usr/bin/putty', {cwd: '/usr/bin'}, (error, stdout, stderr) => {
+  if (error) {
+    throw error;
+  }
+  console.log(stdout);
+});
+*/
   win.webContents.openDevTools();
 
   // Emitted when the window is closed.
