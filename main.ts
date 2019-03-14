@@ -16,14 +16,20 @@ function createWindow() {
     x: 0,
     y: 0,
     width: 1280,
-    height: 800
+    height: 800,
+    //width: size.width,
+    //height: size.height,
+    webPreferences: {
+      nodeIntegration: true,
+    },
   });
 
   win.setMenu(null);    // Remove the menu bar
 
   if (serve) {
     require('electron-reload')(__dirname, {
-     electron: require(`${__dirname}/node_modules/electron`)});
+      electron: require(`${__dirname}/node_modules/electron`)
+    });
     win.loadURL('http://localhost:4200');
   } else {
     win.loadURL(url.format({
@@ -33,30 +39,9 @@ function createWindow() {
     }));
   }
 
-
-var child = require('child_process').execFile;
-var executablePath = "/usr/bin/putty";
-
-child(executablePath, function(err, data) {
-    if(err){
-       console.error(err);
-       return;
-    }
-
-    console.log(data.toString());
-});
-
-/*
-const { execFile } = require('child_process').execFile;
-
-const child = execFile('/usr/bin/putty', {cwd: '/usr/bin'}, (error, stdout, stderr) => {
-  if (error) {
-    throw error;
+  if (serve) {
+    win.webContents.openDevTools();
   }
-  console.log(stdout);
-});
-*/
-  win.webContents.openDevTools();
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -65,6 +50,7 @@ const child = execFile('/usr/bin/putty', {cwd: '/usr/bin'}, (error, stdout, stde
     // when you should delete the corresponding element.
     win = null;
   });
+
 }
 
 try {
